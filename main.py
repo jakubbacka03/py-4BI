@@ -1,44 +1,69 @@
-import random
-import time
-import sorts
+class LinkedList:
+    def __init__(self):
+        self.length = 0
+        self.headNode = None
+        self.tail = None
 
-def r_list(length, max_cislo):
-    t_list = list()
-    for i in range(length):
-        t_list.append(random.randint(0, max_cislo))
-    return t_list
+    def addNode(self, value):
+        pass
 
-def test():
-    uo_list = r_list(5000, 500)
-    start = time.time()
-    sorts.bubble_sort(list(uo_list))
-    end = time.time()
-    print("BubbleSort:", (end - start), "s")
+    def getValues(self, index):
+        if index < 0 or index >= self.length:
+            return -1
 
-    start = time.time()
-    sorts.selection_sort(list(uo_list))
-    end = time.time()
-    print("SelectionSort:", (end - start), "s")
+        if self.head is None:
+            return -1
 
-    start = time.time()
-    sorts.insertion_sort(list(uo_list))
-    end = time.time()
-    print("InsertionSort:", (end - start), "s")
+        curr = self.head
+        for i in range(index):
+            curr = curr.next
+        return curr.value
 
-    start = time.time()
-    sorts.quick_sort(list(uo_list))
-    end = time.time()
-    print("QuickSort:", (end - start), "s")
+    def getHead(self, value):
+        node = Node(value)
+        node.next = self.head
+        self.head = node
 
-    start = time.time()
-    sorts.merge_sort(list(uo_list))
-    end = time.time()
-    print("MergeSort:", (end - start), "s")
+        self.length += 1
 
-    start = time.time()
-    sort_list = list(uo_list)
-    sort_list.sort()
-    end = time.time()
-    print("PythonSort:", (end - start), "s")
+    def getTail(self, value):
+        curr = self.head
+        if curr is None:
+            self.head = Node(value)
+        else:
+            while curr.next is not None:
+                curr = curr.next
+            curr.next = Node(value)
 
-test()
+        self.length += 1
+
+    def removeValues(self, value):
+        pass
+
+    def insert(self, value, position):
+        if position <= 0:
+            self.add(value)
+
+        elif position > (self.length() - 1):
+            self.append(value)
+        else:
+            node = Node(value)
+            pre = self.__head
+            count = 0
+
+            while count < (position - 1):
+                pre = pre.next
+                count += 1
+            node.next = pre.next
+            pre.next = node
+
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+    def getValue(self):
+        return  self.value
+
+    def setNextNode(self, node):
+        self.next = node
